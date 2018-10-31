@@ -8,8 +8,10 @@ include 'SendMailSmtpClass.php'; // https://github.com/Ipatov/SendMailSmtpClass 
 // Массив Headers в http запрос
 $headers = [
     'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+    'Accept-Encoding: gzip, deflate, br',
 	'Accept-language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
 	'Content-Type: text/plain',
+	'AlexaToolbar-ALX_NS_PH: AlexaToolbar/alx-4.0.3',
 ];
 
 // Функция для отправки сообщения Вконтакте
