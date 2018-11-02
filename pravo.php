@@ -8,10 +8,9 @@ include 'SendMailSmtpClass.php'; // https://github.com/Ipatov/SendMailSmtpClass 
 // Массив Headers в http запрос
 $headers = [
     'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-    'Accept-Encoding: gzip, deflate, br',
 	'Accept-language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
 	'Content-Type: text/plain',
-	'AlexaToolbar-ALX_NS_PH: AlexaToolbar/alx-4.0.3',
+	'AlexaToolbar-ALX_NS_PH: AlexaToolbar/alx-4.0.3'
 ];
 
 // Функция для отправки сообщения Вконтакте
@@ -63,7 +62,7 @@ $ch = curl_init('http://www.pravo.by/ofitsialnoe-opublikovanie/novye-postupleniy
 	    "grinevitskiyaleksandr@gmail.com" // Почта отправителя
 	);
 	// Кому письмо (через запятую указываем более одного ящика)
-	$to = 'serhioalfa@mail.ru';
+	$to = 'you email here';
 
 // Вытаскиваем нужную информацию
 foreach($dom->find('div.usercontent dl') as $dl) {
@@ -89,7 +88,7 @@ foreach ($message as $wordSearch) {
 		case "5": 
 			// Отправляем сообщение Вконтакте
 			// id101487135
-			vkMessage('72733725', $wordSearch);
+			vkMessage('you id vk', $wordSearch);
 			$mailMess[] = "<tr><td>" .$wordSearch. "</td></tr>"; // Записываем данные в массив для отправки на почту
 		}
 }
@@ -105,7 +104,7 @@ foreach ($messageT as $word) {
 		case "3":
 		case "5":
 			// Отправляем сообщение в telegram
-			file_get_contents('https://api.telegram.org/bot687652934:AAEbPQu4U9t4xebdhTWQexFo1auGRHIRgUA/sendMessage?chat_id=296873261&disable_web_page_preview=false&parse_mode=html&text='. urlencode($word));
+			file_get_contents('https://api.telegram.org/TOKENHERE/sendMessage?chat_id=YOUCHATIDHERE&disable_web_page_preview=false&parse_mode=html&text='. urlencode($word));
 		}
 }
 ?>
