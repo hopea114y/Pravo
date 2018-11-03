@@ -55,7 +55,7 @@ $ch = curl_init('http://www.pravo.by/ofitsialnoe-opublikovanie/novye-postupleniy
   	$pravo = '<b>Всего ' .$all->plaintext. ' актов опубликовано ' .date('d.m.Y'). '</b>'; // Общее количество опубликованных актов
 
   	// Данные для smtp ('логин', 'пароль', 'хост', 'порт', 'кодировка письма')
-  	$mailSMTP = new SendMailSmtpClass('grinevitskiyaleksandr@gmail.com', 'VA2YAZxPeI', 'ssl://smtp.gmail.com', 465, "UTF-8");
+  	$mailSMTP = new SendMailSmtpClass('YOU MAIL HERE', 'PASSWORD HERE', 'ssl://smtp.gmail.com', 465, "UTF-8");
 	// От кого письмо
 	$from = array(
 	    "Grinevitskiy", // Имя отправителя
