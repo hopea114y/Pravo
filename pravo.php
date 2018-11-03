@@ -58,8 +58,8 @@ $ch = curl_init('http://www.pravo.by/ofitsialnoe-opublikovanie/novye-postupleniy
   	$mailSMTP = new SendMailSmtpClass('YOU MAIL HERE', 'PASSWORD HERE', 'ssl://smtp.gmail.com', 465, "UTF-8");
 	// От кого письмо
 	$from = array(
-	    "Grinevitskiy", // Имя отправителя
-	    "grinevitskiyaleksandr@gmail.com" // Почта отправителя
+	    "NAME", // Имя отправителя
+	    "YOU MAIL HERE" // Почта отправителя
 	);
 	// Кому письмо (через запятую указываем более одного ящика)
 	$to = 'you email here';
