@@ -19,7 +19,7 @@ function vkMessage ($id, $message) {
 	$params = array(
         'user_id' => $id,    // Кому отправляем
         'message' => $message,   // Что отправляем
-        'access_token' => '41f5ae4e97031d5dff83368e915ea0d5fc5aeb5478642e1682f693e8405ab871dde247f09fdd784a5d803',  // access_token можно вбить хардкодом, если работа будет идти из под одного юзера
+        'access_token' => 'YOU TOKEN HERE',  // access_token можно вбить хардкодом, если работа будет идти из под одного юзера
         'random_id' => mt_rand(20, 99999999),
         'v' => '5.85'
     );
