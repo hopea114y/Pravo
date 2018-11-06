@@ -72,7 +72,7 @@ foreach($dom->find('div.usercontent dl') as $dl) {
 		$linkSend = "www.pravo.by" .$link->attr['href']; // Ссылка на документ
 		$messageTempVk = $text. "<br>" .$linkSend. "<br>";
 		$messageVk = trim(str_replace(chr(194).chr(160), ' ', html_entity_decode($messageTempVk))); // Текст для письма Вконтакте
-		$messageTempTel = $text. "\n" .$linkSend. "\n";
+		$messageTempTel = preg_replace('/\s+/', ' ', $text). "\n" .$linkSend. "\n";
 		$messageTelegram = trim(str_replace(chr(194).chr(160), ' ', html_entity_decode($messageTempTel))); // Текст для письма в telegram
 		$message[] = $messageVk; // Массив с нужными данными
 		$messageT[] = $messageTelegram; // Массив с нужными данными для telegram
