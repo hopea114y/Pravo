@@ -52,7 +52,7 @@ function viberMessage ($message){
 	  CURLOPT_HTTPHEADER => array(
 		'Cache-Control: no-cache',
 		'Content-Type: application/JSON',
-		'X-Viber-Auth-Token: 48be6863b867d696-64309e8ca0ff283c-5df6f1f46d99c8ec'
+		'X-Viber-Auth-Token: YOU-TOKEN_HERE'
 	  ),
 	));
  
