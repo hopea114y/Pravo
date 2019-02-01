@@ -1,8 +1,8 @@
 <?php
 
 // Подключаем используемые библиотеки
-include '/storage/ssd1/810/1194810/public_html/simple_html_dom.php'; // http://simplehtmldom.sourceforge.net/ version 1.5
-include '/storage/ssd1/810/1194810/public_html/SendMailSmtpClass.php'; // https://github.com/Ipatov/SendMailSmtpClass version 1.1
+include 'simple_html_dom.php'; // http://simplehtmldom.sourceforge.net/ version 1.5
+include 'SendMailSmtpClass.php'; // https://github.com/Ipatov/SendMailSmtpClass version 1.1
 
 // Массив Headers в http запрос
 $headers = [
