@@ -1,8 +1,23 @@
 <?php
+/**
+ * Work PHP7+
+ * The idea appeared in November 2018
+ *
+ * @see       https://github.com/hopea114y/Pravo GitHub project
+ *
+ * @author    Siarhei Hatsuk <serhioalfa@mail.ru>
+ * @copyright 2018 - 2019 Siarhei Hatsuk
+ * @license   http://www.apache.org/licenses/ Apache License 2.0
+**/
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 // Подключаем используемые библиотеки
-include 'simple_html_dom.php'; // http://simplehtmldom.sourceforge.net/ version 1.5
-include 'SendMailSmtpClass.php'; // https://github.com/Ipatov/SendMailSmtpClass version 1.1
+require 'PHPMailer/Exception.php'; 
+require 'PHPMailer/PHPMailer.php'; // https://github.com/PHPMailer/PHPMailer version 6.0.7
+require 'PHPMailer/SMTP.php';
+require 'simple_html_dom.php'; // https://sourceforge.net/projects/simplehtmldom/ version 1.8.1
 
 // Массив Headers в http запрос
 $headers = [
@@ -20,7 +35,7 @@ function vkMessage ($id, $message) {
 	$params = array(
         'user_id' => $id,    // Кому отправляем
         'message' => $message,   // Что отправляем
-        'access_token' => 'YOU-TOKEN_HERE',  // access_token можно вбить хардкодом, если работа будет идти из под одного юзера
+        'access_token' => 'YOU-TOKEN-HERE',  // access_token можно вбить хардкодом, если работа будет идти из под одного юзера
         'random_id' => mt_rand(20, 99999999),
         'v' => '5.85'
     );
@@ -52,7 +67,7 @@ function viberMessage ($message){
 	  CURLOPT_HTTPHEADER => array(
 		'Cache-Control: no-cache',
 		'Content-Type: application/JSON',
-		'X-Viber-Auth-Token: YOU-TOKEN_HERE'
+		'X-Viber-Auth-Token: YOU-TOKEN-HERE'
 	  ),
 	));
  
@@ -113,7 +128,7 @@ if(date('N') <= 5) {
 				case '3': 
 				case '5': 
 					// Отправляем сообщение Вконтакте
-					vkMessage('ID-VK', $laws);
+					vkMessage('USER-ID-HERE', $laws);
 					global $mailLawsAll;
 					$mailLawsAll[] = '<tr><td>' .$laws. '</td></tr>'; // Записываем данные в массив для отправки на почту
 				}
@@ -129,7 +144,7 @@ if(date('N') <= 5) {
 					if (strpos($region, $city)) {
 						global $mailLawsRegion;
 		        		$mailLawsRegion[] = '<tr><td>' .$region. '</td></tr>';
-		        		vkMessage('ID-VK', $region);
+		        		vkMessage('USER-ID-HERE', $region);
 		        	}
 		        	else {
 		        		false;
@@ -149,10 +164,10 @@ if(date('N') <= 5) {
 				case '3':
 				case '5':
 					// Отправляем сообщение в telegram
-					file_get_contents('https://api.telegram.org/YOU-TOKEN-HERE/sendMessage?chat_id=YOU-CHAT-ID_HERE&disable_web_page_preview=false&parse_mode=html&text='.urlencode($laws));
+					file_get_contents('https://api.telegram.org/TOKEN-HERE/sendMessage?chat_id=CHAT-ID-HERE&disable_web_page_preview=false&parse_mode=html&text='.urlencode($laws));
 					// Отправляем сообщение в viber
-					$messageViberAll['receiver'] = 'ID-VIBER';
-					$messageViberAll['sender.name'] = 'SENDER-NAME';
+					$messageViberAll['receiver'] = 'TOKEN-HERE';
+					$messageViberAll['sender.name'] = 'NAME-HERE';
 					$messageViberAll['type'] = 'text';
 					$messageViberAll['text'] = $laws;
 					viberMessage($messageViberAll);
@@ -162,7 +177,7 @@ if(date('N') <= 5) {
 
 	// Функция для поиска и отправки региональных законов для telegram и viber
 	function regionalLawsTV($array, $searchRegion, $pravo) {
-		file_get_contents('https://api.telegram.org/YOU-TOKEN-HERE/sendMessage?chat_id=YOU-CHAT-ID_HERE&disable_web_page_preview=false&parse_mode=html&text=<b>Региональные законы:</b>');
+		file_get_contents('https://api.telegram.org/TOKEN-HERE/sendMessage?chat_id=CHAT-ID-HERE&disable_web_page_preview=false&parse_mode=html&text=<b>Региональные законы:</b>');
 
 		// Поиск законов для конкретных регионов для Telegram
 		foreach ($array as $region) {
@@ -170,10 +185,10 @@ if(date('N') <= 5) {
 				case '9':
 				foreach ($searchRegion as $city) {
 					if (strpos($region, $city)) {
-		        		file_get_contents('https://api.telegram.org/YOU-TOKEN-HERE/sendMessage?chat_id=YOU-CHAT-ID_HERE&disable_web_page_preview=false&parse_mode=html&text='.urlencode($region));
+		        		file_get_contents('https://api.telegram.org/TOKEN-HERE/sendMessage?chat_id=CHAT-ID-HERE&disable_web_page_preview=false&parse_mode=html&text='.urlencode($region));
 		        		// Отправляем сообщение в viber
-						$messageViberReg['receiver'] = 'ID-VIBER'; // Уникальный ID
-						$messageViberReg['sender.name'] = 'SENDER-NAME';
+						$messageViberReg['receiver'] = 'TOKEN-HERE'; // Уникальный ID
+						$messageViberReg['sender.name'] = 'NAME-HERE';
 						$messageViberReg['type'] = 'text';
 						$messageViberReg['text'] = $region;
 						viberMessage($messageViberReg);
@@ -185,27 +200,44 @@ if(date('N') <= 5) {
 	    	}
 		}
 		// Сообщение об общем количестве опубликованных законов
-		file_get_contents('https://api.telegram.org/YOU-TOKEN-HERE/sendMessage?chat_id=YOU-CHAT-ID_HERE&disable_web_page_preview=false&parse_mode=html&text='.urlencode($pravo));
+		file_get_contents('https://api.telegram.org/TOKEN-HERE/sendMessage?chat_id=CHAT-ID-HERE&disable_web_page_preview=false&parse_mode=html&text='.urlencode($pravo));
 	}
 
 	allLaws($message);
 	regionalLaws($message, $searchRegion);
 
-	// Данные для smtp ('логин', 'пароль', 'хост', 'порт', 'кодировка письма')
-	$mailSMTP = new SendMailSmtpClass('MAIL-HERE', 'PASSWORD-HERE', 'ssl://smtp.gmail.com', 465, 'UTF-8');
-	// От кого письмо
-	$from = array(
-	    'NAME-HERE', // Имя отправителя
-	    'MAIL-HERE' // Почта отправителя
-	);
-	// Кому письмо (через запятую указываем более одного ящика)
-	$to = 'MAIL-HERE';
-	// Отправляем одно письмо на электронную почту (кому, тема сообщения, текст, куда)
-	$mailSMTP->send($to, 'Законы от ' .date('d.m.Y'), '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><table><tr><td><h2>Список опубликованных законов по фильтру:</h2></td></tr>' .implode('', $mailLawsAll).'<tr><td><h2>Региональные законы:</h2></td></tr>' .implode('', $mailLawsRegion). '<tr><td><h3>' .$pravo. '</h3></td></tr></table>', $from);
+	// Отправка письма SMTP
+	$mail = new PHPMailer(true);
+try {
+    //Server settings
+    $mail->SMTPDebug = 0;
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'MAIL-HERE';
+    $mail->Password = 'PASSWORD-HERE';
+    $mail->SMTPSecure = 'ssl';
+    $mail->Port = 465;
+    $mail->CharSet = "UTF-8";
 
-	allLawsTV($messageT);
-	regionalLawsTV($messageT, $searchRegion, $pravo);
-	
+    //Recipients
+    $mail->setFrom('MAIL-HERE', 'NAME-HERE');
+    $mail->addAddress('MAIL-HERE', 'NAME-HERE');
+
+    //Content
+    $mail->isHTML(true);
+    $mail->Subject = 'Законы от ' .date('d.m.Y');
+    $mail->Body    = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><table><tr><td><h2>Список опубликованных законов по фильтру:</h2></td></tr>' .implode('', $mailLawsAll).'<tr><td><h2>Региональные законы:</h2></td></tr>' .implode('', $mailLawsRegion). '<tr><td><h3>' .$pravo. '</h3></td></tr></table>';
+
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+}
+
+allLawsTV($messageT);
+regionalLawsTV($messageT, $searchRegion, $pravo);
+
 }
 else {
 	false;
