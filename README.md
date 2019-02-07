@@ -4,5 +4,5 @@
 
 ## Используемые библиотеки:
 
-+ [Simple html dom parser version 1.5](http://simplehtmldom.sourceforge.net/)
-+ [SMTP version 1.1](https://github.com/Ipatov/SendMailSmtpClass)
++ [Simple html dom parser version 1.8.1](https://sourceforge.net/projects/simplehtmldom/)
++ [PHPMailer version 6.0.7](https://github.com/PHPMailer/PHPMailer)
